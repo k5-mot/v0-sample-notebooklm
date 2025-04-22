@@ -2,8 +2,7 @@
 
 *Automatically synced with your [v0.dev](https://v0.dev) deployments*
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/k5mot888vercel-gmailcoms-projects/v0-create-notebook-ui)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/projects/1BtssgWH5Nn)
+
 
 ## Overview
 
@@ -14,7 +13,6 @@ Any changes you make to your deployed app will be automatically pushed to this r
 
 Your project is live at:
 
-**[https://vercel.com/k5mot888vercel-gmailcoms-projects/v0-create-notebook-ui](https://vercel.com/k5mot888vercel-gmailcoms-projects/v0-create-notebook-ui)**
 
 ## Build your app
 
@@ -28,3 +26,9 @@ Continue building your app on:
 2. Deploy your chats from the v0 interface
 3. Changes are automatically pushed to this repository
 4. Vercel deploys the latest version from this repository
+
+
+## Sample
+
+- https://v0-create-notebook-6p6o7x6ki-k5mot888vercel-gmailcoms-projects.vercel.app/
+- ![Deployed on Vercel](./process.png)
