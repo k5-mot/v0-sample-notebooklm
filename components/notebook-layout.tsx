@@ -11,14 +11,14 @@ export default function NotebookLayout() {
 
   // Desktop layout with fixed columns
   const DesktopLayout = () => (
-    <div className="grid h-[100vh] w-full grid-cols-[300px_1fr_300px] overflow-hidden">
-      <div className="h-full overflow-y-auto border-r">
+    <div className="grid h-[calc(100vh-2rem)] grid-cols-[300px_1fr_300px] rounded-lg border bg-background shadow-sm overflow-hidden">
+      <div className="border-r overflow-auto">
         <SourcePanel />
       </div>
-      <div className="h-full overflow-y-auto">
+      <div className="overflow-auto">
         <ChatPanel />
       </div>
-      <div className="h-full overflow-y-auto border-l">
+      <div className="border-l overflow-auto">
         <StudioPanel />
       </div>
     </div>
@@ -26,8 +26,8 @@ export default function NotebookLayout() {
 
   // Mobile layout with tabs
   const MobileLayout = () => (
-    <Tabs defaultValue="chat" className="h-[100vh]">
-      <TabsList className="fixed top-0 z-10 grid h-14 w-full grid-cols-3 rounded-none border-b bg-background">
+    <Tabs defaultValue="chat" className="h-full">
+      <TabsList className="grid h-14 grid-cols-3 rounded-none border-b">
         <TabsTrigger
           value="source"
           className="flex items-center gap-2 rounded-none data-[state=active]:border-b-2 data-[state=active]:border-primary"
@@ -50,17 +50,21 @@ export default function NotebookLayout() {
           <span>Studio</span>
         </TabsTrigger>
       </TabsList>
-      <TabsContent value="source" className="mt-14 h-[calc(100vh-3.5rem)] m-0 p-0 overflow-y-auto">
+      <TabsContent value="source" className="h-[calc(100%-3.5rem)] m-0 p-0">
         <SourcePanel />
       </TabsContent>
-      <TabsContent value="chat" className="mt-14 h-[calc(100vh-3.5rem)] m-0 p-0 overflow-y-auto">
+      <TabsContent value="chat" className="h-[calc(100%-3.5rem)] m-0 p-0">
         <ChatPanel />
       </TabsContent>
-      <TabsContent value="studio" className="mt-14 h-[calc(100vh-3.5rem)] m-0 p-0 overflow-y-auto">
+      <TabsContent value="studio" className="h-[calc(100%-3.5rem)] m-0 p-0">
         <StudioPanel />
       </TabsContent>
     </Tabs>
   )
 
-  return <div className="w-full bg-background">{isMobile ? <MobileLayout /> : <DesktopLayout />}</div>
+  return (
+    <div className="h-screen w-full overflow-auto bg-background p-4">
+      {isMobile ? <MobileLayout /> : <DesktopLayout />}
+    </div>
+  )
 }

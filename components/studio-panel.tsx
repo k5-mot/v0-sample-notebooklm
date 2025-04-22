@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
 import { Input } from "@/components/ui/input"
@@ -108,14 +109,14 @@ export default function StudioPanel() {
   }
 
   return (
-    <div className="flex h-full flex-col">
-      <div className="sticky top-0 z-10 bg-background border-b p-4">
+    <div className="flex h-full flex-col bg-muted/20">
+      <div className="border-b p-4">
         <h2 className="text-lg font-semibold">Studio</h2>
         <p className="text-sm text-muted-foreground">Create notes and audio clips</p>
       </div>
 
       <Tabs defaultValue="notes" className="flex-1">
-        <div className="px-4 pt-2 sticky top-[105px] z-10 bg-background">
+        <div className="px-4 pt-2">
           <TabsList className="w-full">
             <TabsTrigger value="notes" className="flex-1">
               Notes
@@ -134,8 +135,8 @@ export default function StudioPanel() {
             </Button>
           </div>
 
-          <div className="flex-1 p-4 pt-0">
-            <div className="grid gap-2">
+          <ScrollArea className="flex-1 h-[calc(100vh-280px)]">
+            <div className="p-4 grid gap-2">
               {notes.map((note) => (
                 <Card
                   key={note.id}
@@ -162,7 +163,7 @@ export default function StudioPanel() {
                 </Card>
               ))}
             </div>
-          </div>
+          </ScrollArea>
 
           {activeNote && (
             <Card className="m-4 mt-0">
@@ -204,8 +205,8 @@ export default function StudioPanel() {
             )}
           </div>
 
-          <div className="flex-1 p-4 pt-0">
-            <div className="grid gap-2">
+          <ScrollArea className="flex-1 h-[calc(100vh-280px)]">
+            <div className="p-4 grid gap-2">
               {audioClips.map((audio) => (
                 <Card
                   key={audio.id}
@@ -239,7 +240,7 @@ export default function StudioPanel() {
                 </Card>
               ))}
             </div>
-          </div>
+          </ScrollArea>
 
           {currentAudio && (
             <Card className="m-4 mt-0">
