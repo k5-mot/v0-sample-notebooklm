@@ -6,7 +6,6 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { FileText, Upload, File, Trash2, Search } from "lucide-react"
 
@@ -69,8 +68,8 @@ export default function SourcePanel() {
   }
 
   return (
-    <div className="flex h-full flex-col bg-muted/20">
-      <div className="border-b p-4">
+    <div className="flex h-full flex-col">
+      <div className="sticky top-0 z-10 bg-background border-b p-4">
         <h2 className="text-lg font-semibold">Sources</h2>
         <p className="text-sm text-muted-foreground">Manage your document sources</p>
       </div>
@@ -102,7 +101,7 @@ export default function SourcePanel() {
       </div>
 
       <Tabs defaultValue="all" className="flex-1">
-        <div className="px-4">
+        <div className="px-4 sticky top-[105px] z-10 bg-background">
           <TabsList className="w-full">
             <TabsTrigger value="all" className="flex-1">
               All
@@ -117,9 +116,35 @@ export default function SourcePanel() {
         </div>
 
         <TabsContent value="all" className="flex-1 p-0 m-0">
-          <ScrollArea className="h-[calc(100vh-220px)]">
-            <div className="p-4 grid gap-2">
-              {filteredDocuments.map((doc) => (
+          <div className="p-4 grid gap-2">
+            {filteredDocuments.map((doc) => (
+              <Card
+                key={doc.id}
+                className={`cursor-pointer hover:bg-accent/50 transition-colors ${selectedDocument?.id === doc.id ? "border-primary" : ""}`}
+                onClick={() => handleDocumentSelect(doc)}
+              >
+                <CardHeader className="p-3">
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-center gap-2">
+                      <FileText className="h-4 w-4 text-primary" />
+                      <CardTitle className="text-sm">{doc.title}</CardTitle>
+                    </div>
+                    <Button variant="ghost" size="icon" className="h-6 w-6">
+                      <Trash2 className="h-3 w-3" />
+                    </Button>
+                  </div>
+                  <CardDescription className="text-xs">{doc.date}</CardDescription>
+                </CardHeader>
+              </Card>
+            ))}
+          </div>
+        </TabsContent>
+
+        <TabsContent value="pdfs" className="flex-1 p-0 m-0">
+          <div className="p-4 grid gap-2">
+            {filteredDocuments
+              .filter((doc) => doc.type === "pdf")
+              .map((doc) => (
                 <Card
                   key={doc.id}
                   className={`cursor-pointer hover:bg-accent/50 transition-colors ${selectedDocument?.id === doc.id ? "border-primary" : ""}`}
@@ -139,66 +164,34 @@ export default function SourcePanel() {
                   </CardHeader>
                 </Card>
               ))}
-            </div>
-          </ScrollArea>
-        </TabsContent>
-
-        <TabsContent value="pdfs" className="flex-1 p-0 m-0">
-          <ScrollArea className="h-[calc(100vh-220px)]">
-            <div className="p-4 grid gap-2">
-              {filteredDocuments
-                .filter((doc) => doc.type === "pdf")
-                .map((doc) => (
-                  <Card
-                    key={doc.id}
-                    className={`cursor-pointer hover:bg-accent/50 transition-colors ${selectedDocument?.id === doc.id ? "border-primary" : ""}`}
-                    onClick={() => handleDocumentSelect(doc)}
-                  >
-                    <CardHeader className="p-3">
-                      <div className="flex items-start justify-between">
-                        <div className="flex items-center gap-2">
-                          <FileText className="h-4 w-4 text-primary" />
-                          <CardTitle className="text-sm">{doc.title}</CardTitle>
-                        </div>
-                        <Button variant="ghost" size="icon" className="h-6 w-6">
-                          <Trash2 className="h-3 w-3" />
-                        </Button>
-                      </div>
-                      <CardDescription className="text-xs">{doc.date}</CardDescription>
-                    </CardHeader>
-                  </Card>
-                ))}
-            </div>
-          </ScrollArea>
+          </div>
         </TabsContent>
 
         <TabsContent value="docs" className="flex-1 p-0 m-0">
-          <ScrollArea className="h-[calc(100vh-220px)]">
-            <div className="p-4 grid gap-2">
-              {filteredDocuments
-                .filter((doc) => doc.type === "doc")
-                .map((doc) => (
-                  <Card
-                    key={doc.id}
-                    className={`cursor-pointer hover:bg-accent/50 transition-colors ${selectedDocument?.id === doc.id ? "border-primary" : ""}`}
-                    onClick={() => handleDocumentSelect(doc)}
-                  >
-                    <CardHeader className="p-3">
-                      <div className="flex items-start justify-between">
-                        <div className="flex items-center gap-2">
-                          <FileText className="h-4 w-4 text-primary" />
-                          <CardTitle className="text-sm">{doc.title}</CardTitle>
-                        </div>
-                        <Button variant="ghost" size="icon" className="h-6 w-6">
-                          <Trash2 className="h-3 w-3" />
-                        </Button>
+          <div className="p-4 grid gap-2">
+            {filteredDocuments
+              .filter((doc) => doc.type === "doc")
+              .map((doc) => (
+                <Card
+                  key={doc.id}
+                  className={`cursor-pointer hover:bg-accent/50 transition-colors ${selectedDocument?.id === doc.id ? "border-primary" : ""}`}
+                  onClick={() => handleDocumentSelect(doc)}
+                >
+                  <CardHeader className="p-3">
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-center gap-2">
+                        <FileText className="h-4 w-4 text-primary" />
+                        <CardTitle className="text-sm">{doc.title}</CardTitle>
                       </div>
-                      <CardDescription className="text-xs">{doc.date}</CardDescription>
-                    </CardHeader>
-                  </Card>
-                ))}
-            </div>
-          </ScrollArea>
+                      <Button variant="ghost" size="icon" className="h-6 w-6">
+                        <Trash2 className="h-3 w-3" />
+                      </Button>
+                    </div>
+                    <CardDescription className="text-xs">{doc.date}</CardDescription>
+                  </CardHeader>
+                </Card>
+              ))}
+          </div>
         </TabsContent>
       </Tabs>
 

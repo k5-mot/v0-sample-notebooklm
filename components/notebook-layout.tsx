@@ -11,14 +11,14 @@ export default function NotebookLayout() {
 
   // Desktop layout with fixed columns
   const DesktopLayout = () => (
-    <div className="grid h-full grid-cols-[300px_1fr_300px]">
-      <div className="border-r">
+    <div className="grid h-[100vh] w-full grid-cols-[300px_1fr_300px] overflow-hidden">
+      <div className="h-full overflow-y-auto border-r">
         <SourcePanel />
       </div>
-      <div>
+      <div className="h-full overflow-y-auto">
         <ChatPanel />
       </div>
-      <div className="border-l">
+      <div className="h-full overflow-y-auto border-l">
         <StudioPanel />
       </div>
     </div>
@@ -26,8 +26,8 @@ export default function NotebookLayout() {
 
   // Mobile layout with tabs
   const MobileLayout = () => (
-    <Tabs defaultValue="chat" className="h-full">
-      <TabsList className="grid h-14 grid-cols-3 rounded-none border-b">
+    <Tabs defaultValue="chat" className="h-[100vh]">
+      <TabsList className="fixed top-0 z-10 grid h-14 w-full grid-cols-3 rounded-none border-b bg-background">
         <TabsTrigger
           value="source"
           className="flex items-center gap-2 rounded-none data-[state=active]:border-b-2 data-[state=active]:border-primary"
@@ -50,21 +50,17 @@ export default function NotebookLayout() {
           <span>Studio</span>
         </TabsTrigger>
       </TabsList>
-      <TabsContent value="source" className="h-[calc(100%-3.5rem)] m-0 p-0">
+      <TabsContent value="source" className="mt-14 h-[calc(100vh-3.5rem)] m-0 p-0 overflow-y-auto">
         <SourcePanel />
       </TabsContent>
-      <TabsContent value="chat" className="h-[calc(100%-3.5rem)] m-0 p-0">
+      <TabsContent value="chat" className="mt-14 h-[calc(100vh-3.5rem)] m-0 p-0 overflow-y-auto">
         <ChatPanel />
       </TabsContent>
-      <TabsContent value="studio" className="h-[calc(100%-3.5rem)] m-0 p-0">
+      <TabsContent value="studio" className="mt-14 h-[calc(100vh-3.5rem)] m-0 p-0 overflow-y-auto">
         <StudioPanel />
       </TabsContent>
     </Tabs>
   )
 
-  return (
-    <div className="h-screen w-full overflow-hidden bg-background">
-      {isMobile ? <MobileLayout /> : <DesktopLayout />}
-    </div>
-  )
+  return <div className="w-full bg-background">{isMobile ? <MobileLayout /> : <DesktopLayout />}</div>
 }

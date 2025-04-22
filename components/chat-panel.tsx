@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { Avatar } from "@/components/ui/avatar"
 import { Card } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -74,13 +73,13 @@ export default function ChatPanel() {
 
   return (
     <div className="flex h-full flex-col">
-      <div className="border-b p-4">
+      <div className="sticky top-0 z-10 bg-background border-b p-4">
         <h2 className="text-lg font-semibold">Chat</h2>
         <p className="text-sm text-muted-foreground">Ask questions about your documents</p>
       </div>
 
       <Tabs defaultValue="chat" className="flex-1 flex flex-col">
-        <div className="px-4 pt-2">
+        <div className="px-4 pt-2 sticky top-[105px] z-10 bg-background">
           <TabsList className="w-full">
             <TabsTrigger value="chat" className="flex-1">
               Chat
@@ -92,7 +91,7 @@ export default function ChatPanel() {
         </div>
 
         <TabsContent value="chat" className="flex-1 flex flex-col p-0 m-0">
-          <ScrollArea className="flex-1 p-4">
+          <div className="flex-1 p-4">
             <div className="space-y-4 pb-4">
               {messages.map((message) => (
                 <div key={message.id} className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
@@ -146,9 +145,9 @@ export default function ChatPanel() {
 
               <div ref={messagesEndRef} />
             </div>
-          </ScrollArea>
+          </div>
 
-          <div className="p-4 border-t">
+          <div className="sticky bottom-0 p-4 border-t bg-background">
             <form
               onSubmit={(e) => {
                 e.preventDefault()
